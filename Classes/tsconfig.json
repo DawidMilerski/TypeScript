@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "module": "amd",
+      "outFile": "./out.js",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true,
+      "baseUrl" : "./",
+      "alwaysStrict" : true,
+      "declaration" : true,
+    },
+    "files": [
+      "../main.ts",
+      "arm.ts",
+      "back.ts",
+      "brain.ts",
+      "foot.ts",
+      "hand.ts",
+      "head.ts",
+      "heart.ts",
+      "leg.ts",
+      "lungs.ts",
+      "torso.ts"
+    ]
+    }

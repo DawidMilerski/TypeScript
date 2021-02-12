@@ -11,7 +11,7 @@ export class Head {
         console.log("Hi it's head!");
     }
         
-    FuncEyeDefect():void {
+    setEyeDefect():void {
         console.log(`I have ${this.hairColor} hair and ${this.eyesColor} eyes`);
 
         if (this.eyeDefect === true) {
@@ -26,5 +26,5 @@ export class Head {
 // var head1 = new Head("brown", "green", true);
 // var head2 = new Head("blond", "blue", false);
 
-// head1.FuncEyeDefect();
-// head2.FuncEyeDefect();
+// head1.setEyeDefect();
+// head2.setEyeDefect();

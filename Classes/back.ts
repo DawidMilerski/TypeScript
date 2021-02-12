@@ -1,7 +1,7 @@
 export class Back {
     strength:number;
 
-    constructor(strength:number = 45) {
+    constructor(strength:number = Math.floor(Math.random() * (59 - 30 + 1) + 30)) {
         this.strength = strength;
 
         console.log("Hi it's back!");
@@ -17,6 +17,18 @@ export class Back {
         } else if (this.strength < 30) {
             console.log("My back is weak :/");
         }
+    }
+
+    decreaseStrength():void {
+        console.log(`Strength before decreasing: ${this.strength}`);
+        this.strength --;
+        console.log(`Strength after decreasing: ${this.strength}`);
+    }
+
+    increaseStrength():void {
+        console.log(`Strength before increasing: ${this.strength}`);
+        this.strength ++;
+        console.log(`Strength after increasing: ${this.strength}`);
     }
 }
 

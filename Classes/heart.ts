@@ -1,9 +1,8 @@
 export class Heart {
     heartRate:number;
 
-    constructor(heartRate:number = 80) {
+    constructor(heartRate:number = Math.floor(Math.random() * (100 - 60 + 1) + 60)) {
         this.heartRate = heartRate;
-
         console.log("Hi it's heart!");
     }
 
@@ -12,5 +11,5 @@ export class Heart {
     }
 }
 
-// var heart1 = new Heart(60);
-// heart1.showHeartRate();
+var heart1 = new Heart();
+heart1.showHeartRate();

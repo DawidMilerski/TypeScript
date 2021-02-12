@@ -2,7 +2,7 @@ export class Brain {
     iq:number;
     personalityType:string;
 
-    constructor(iq:number = 110, personalityType:string) {
+    constructor(personalityType:string, iq:number = Math.floor(Math.random() * (115 - 85 + 1) + 85)) {
         this.iq = iq;
         this.personalityType = personalityType;
 
@@ -15,8 +15,8 @@ export class Brain {
     }
 }
 
-// var brain1 = new brain(127, "Introvert");
-// var brain2 = new brain(115, "Extrovert");
+// var brain1 = new Brain("Introvert");
+// var brain2 = new Brain(115, "Extrovert");
 
 // brain1.showData();
 // brain2.showData();
