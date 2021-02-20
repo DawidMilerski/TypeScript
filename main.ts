@@ -15,6 +15,8 @@ class Person {
     HP:number;
     position:any = [];
     targetPosition:any = [];
+    walkSpeed:any = [0,0];
+
     private back:Back;
     private brain:Brain;
     private head:Head;
@@ -85,22 +87,110 @@ class Person {
         this.torso.showStrength();
     }
 
+    run() {
+        var xDistance:number = Math.abs(this.targetPosition[0] - this.position[0]);
+        var yDistance:number = Math.abs(this.targetPosition[1] - this.position[1]);
+
+        // console.log(`Target X - Current X = ${xDistance}`);
+        // console.log(`Target Y - Current Y = ${yDistance}`);
+
+        if (xDistance >= 100 ) {
+            this.walkSpeed[0] = 100;
+            console.log(`Current X walk speed: ${this.walkSpeed[0]} px/s`);
+        }else if (xDistance >= 50 ) {
+            this.walkSpeed[0] = 50;
+            console.log(`Current X walk speed: ${this.walkSpeed[0]} px/s`);
+        } else if (xDistance >= 10) {
+            this.walkSpeed[0] = 10;
+            console.log(`Current X walk speed: ${this.walkSpeed[0]} px/s`);
+        } else if (xDistance >= 5) {
+            this.walkSpeed[0] = 5;
+            console.log(`Current X walk speed: ${this.walkSpeed[0]} px/s`);
+        } else if (xDistance < 5) {
+            this.walkSpeed[0] = 1;
+            console.log(`Current X walk speed: ${this.walkSpeed[0]} px/s`);
+        }
+
+        if (yDistance >= 100 ) {
+            this.walkSpeed[1] = 100;
+            console.log(`Current Y walk speed: ${this.walkSpeed[1]} px/s`);
+        }else if (yDistance >= 50 ) {
+            this.walkSpeed[1] = 50;
+            console.log(`Current Y walk speed: ${this.walkSpeed[1]} px/s`);
+        } else if (yDistance >= 10) {
+            this.walkSpeed[1] = 10;
+            console.log(`Current Y walk speed: ${this.walkSpeed[1]} px/s`);
+        } else if (yDistance >= 5) {
+            this.walkSpeed[1] = 5;
+            console.log(`Current Y walk speed: ${this.walkSpeed[1]} px/s`);
+        } else if (yDistance < 5) {
+            this.walkSpeed[1] = 1;
+            console.log(`Current Y walk speed: ${this.walkSpeed[1]} px/s`);
+        }
+    }
+
     walk() {
         console.log(`Current Position: X: ${this.position[0]} Y: ${this.position[1]}`);
-        console.log(`Target Position: X: ${this.position[0]} Y: ${this.position[1]}`);
-        console.log("Twoja stara");
+        console.log(`Target Position: X: ${this.targetPosition[0]} Y: ${this.targetPosition[1]}`);
+        this.run();
+
+        if (this.position[0] < this.targetPosition[0]) {
+            this.position[0] += this.walkSpeed[0];
+            console.log(`Current X position: ${this.position[0]}`);
+        } else if (this.position[0] > this.targetPosition[0]) {
+            this.position[0] -= this.walkSpeed[0];
+            console.log(`Current X position: ${this.position[0]}`);
+        } else {
+            this.walkSpeed[0] = 0;
+            console.log(`Current X: ${this.position[0]} and Target X: ${this.targetPosition[0]} are the same`);
+        }
+
+        if (this.position[1] < this.targetPosition[1]) {
+            this.position[1] += this.walkSpeed[1];
+            console.log(`Current Y position: ${this.position[1]}`);
+        } else if (this.position[1] > this.targetPosition[1]) {
+            this.position[1] -= this.walkSpeed[1];
+            console.log(`Current Y position: ${this.position[1]}`);
+        } else {
+            this.walkSpeed[0] = 0;
+            console.log(`Current Y: ${this.position[1]} and Target Y: ${this.targetPosition[1]} are the same`);
+        }
         
+        if(this.position[0] == this.targetPosition[0] && this.position[0] == this.targetPosition[0]){
+            this.stay();
+        }
     }
+
+    stay(){
+        this.position = [Math.floor(Math.random() * (700 - 0 + 1) + 0), Math.floor(Math.random() * (700 - 0 + 1) + 0)];
+        this.targetPosition = [Math.floor(Math.random() * (700 - 0 + 1) + 0), Math.floor(Math.random() * (700 - 0 + 1) + 0)];
+        
+        this.walk();
+    };
     
 }
 
 class Main {
     private people:any = [];
     private numberOfPeople:number = 2;
+    private canvas: HTMLCanvasElement;
+    private context: CanvasRenderingContext2D;
 
     constructor(){
+        /*
+        const canvas = document.getElementById('simulation') as HTMLCanvasElement;
+        const context = canvas.getContext('2d');
+       
+        this.canvas = canvas;
+        this.context = context;
+        */
+
         this.peopleGenerator();
         console.log(this.people);
+        // this.people[2].walk();
+        // this.people[2].stay();
+        this.render();
+        // this.genCanvas();
     }
 
     private nameGenerator() {
@@ -118,15 +208,47 @@ class Main {
         }
     }
 
-    hurt(chooseIndex:number, decreaseHP:number):void {
+    public hurt(chooseIndex:number, decreaseHP:number):void {
         console.log(`HP before decreasing: ${this.people[chooseIndex].HP}`);
         this.people[chooseIndex].HP -= decreaseHP;
     
         console.log(`HP after decreasing: ${this.people[chooseIndex].HP}`);
         console.log(this.people[chooseIndex]);
-    }
+    }    
+
+
+    public render() {
+        var seconds = 0;
+        var interval = setInterval(function() {
+
+            seconds++;
+            // this.people[2].walk();
+            console.log(seconds);
     
+            if (seconds >= 10) {
+                clearInterval(interval);
+                // this.people[2].stay();
+            }
+
+        }, 100);
+    }
+
+    /*
+    genCanvas() {
+        const centerX = this.canvas.width / 2;
+        const centerY = this.canvas.height / 2;
+        const radius = 70;
+
+        this.context.beginPath();
+        this.context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        this.context.fillStyle = 'green';
+        this.context.fill();
+        this.context.lineWidth = 5;
+        this.context.strokeStyle = '#003300';
+        this.context.stroke();
+    }
+    */
 }
 
 var main1 = new Main();
-main1.hurt(1, 1000);
+// main1.hurt(1, 1000);
